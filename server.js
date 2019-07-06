@@ -1,40 +1,31 @@
-let express = require('express');
-let app = express().use(express.static(__dirname + '/'))
-let http = require('http').Server(app);
-let io = require('socket.io')(http);
+'use strict';
 
-app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/index.html');
+import express from 'express';
+// const https = require('https');
+import { createServer } from 'http';
+import { readFileSync } from 'fs';
+import routes from './routes/auth';
+const app = express();
+const ip = '172.16.20.95';
+const https_port = 3000;
+var Welcome_html = readFileSync('index.html');
+
+var http_server = createServer();
+http_server.on('request', app);
+http_server.listen(https_port, ip, function() {
+	console.log(
+		'Listening on ' +
+			http_server.address().address +
+			':' +
+			http_server.address().port
+	);
 });
 
-io.on('connection', (socket) => {
-
-    socket.on('disconnect', function () {
-        io.emit('users-changed', {
-            user: socket.roomName,
-            event: 'left'
-        });
-    });
-
-    socket.on('set-roomName', (roomName) => {
-        socket.roomName = roomName;
-        io.emit('users-changed', {
-            user: roomName,
-            event: 'joined'
-        });
-    });
-
-    socket.on('add-message', (message) => {
-        io.emit('message', {
-            text: message.text,
-            from: socket.roomName,
-            created: new Date()
-        });
-    });
-});
-
-var port = process.env.PORT || 3001;
-
-http.listen(port, function () {
-    console.log('listening in http://localhost:' + port);
+// routes
+app.use('/api/', routes);
+app.get('/', function(req, res) {
+	res.writeHead(200, {
+		'Content-Type': 'text/html'
+	});
+	res.end(Welcome_html);
 });
