@@ -19,7 +19,7 @@ http_server.listen(port, function() {
 			http_server.address().port
 	);
 });
-
+app.use(express.bodyParser());
 // routes
 app.use('/api/', routes);
 app.get('/', function(req, res) {
