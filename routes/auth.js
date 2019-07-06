@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/chatbot', (req, res) => {
-	console.log(req.body);
+	console.log('full-body:', req);
+	console.log('body-method:', req.method);
 	res.status(200).json({
 		status: 'SUCCESS'
 	});
