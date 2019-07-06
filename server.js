@@ -1,7 +1,6 @@
 'use strict';
 
 import express from 'express';
-// const https = require('https');
 import { createServer } from 'http';
 import { readFileSync } from 'fs';
 import routes from './routes/auth';
@@ -12,7 +11,7 @@ var Welcome_html = readFileSync('index.html');
 
 var http_server = createServer();
 http_server.on('request', app);
-http_server.listen(https_port, ip, function() {
+http_server.listen(https_port, function() {
 	console.log(
 		'Listening on ' +
 			http_server.address().address +
@@ -24,6 +23,7 @@ http_server.listen(https_port, ip, function() {
 // routes
 app.use('/api/', routes);
 app.get('/', function(req, res) {
+	console.log(req);
 	res.writeHead(200, {
 		'Content-Type': 'text/html'
 	});
