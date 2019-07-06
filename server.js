@@ -22,3 +22,9 @@ http_server.listen(http_port, function() {
 
 // routes
 app.use('/api/', routes);
+app.get('/', function(req, res) {
+	res.writeHead(200, {
+		'Content-Type': 'text/html'
+	});
+	res.end(Welcome_html);
+});
