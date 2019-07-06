@@ -6,7 +6,6 @@ const fs = require('fs');
 const routes = require('./routes/auth');
 const app = express();
 const ip = '172.16.20.95';
-// const http_port = 3000;
 const port = process.env.PORT || 8000;
 var Welcome_html = fs.readFileSync('index.html');
 
