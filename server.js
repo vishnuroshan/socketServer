@@ -22,10 +22,3 @@ http_server.listen(https_port, function() {
 
 // routes
 app.use('/api/', routes);
-app.get('/', function(req, res) {
-	console.log(req);
-	res.writeHead(200, {
-		'Content-Type': 'text/html'
-	});
-	res.end(Welcome_html);
-});
