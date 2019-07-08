@@ -20,7 +20,9 @@ http_server.listen(port, function() {
 			http_server.address().port
 	);
 });
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({ type: '*/*' }));
+app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: false }));
 // routes
 app.use('/api/', routes);
 app.get('/', function(req, res) {
